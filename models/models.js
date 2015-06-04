@@ -29,6 +29,8 @@ var sequelize = new Sequelize(DB_name, user, pwd,
 // Importar definicion de la tabla Quiz
 var quiz_path = path.join(__dirname,'quiz');
 var Quiz = sequelize.import(quiz_path);
+exports.Quiz = Quiz; 
+
 /*
 // Importar definicion de la tabla Comment
 var comment_path = path.join(__dirname,'comment');
@@ -49,33 +51,25 @@ User.hasMany(Quiz);
 exports.Quiz = Quiz; 
 exports.Comment = Comment; 
 exports.User = User;
-
+*/
 // sequelize.sync() inicializa tabla de preguntas en DB
 sequelize.sync().then(function() {
   // then(..) ejecuta el manejador una vez creada la tabla
-  User.count().then(function (count){
-    if(count === 0) {   // la tabla se inicializa solo si está vacía
-      User.bulkCreate( 
-        [ {username: 'admin',   password: '1234', isAdmin: true},
-          {username: 'pepe',   password: '5678'} // el valor por defecto de isAdmin es 'false'
-        ]
-      ).then(function(){
-        console.log('Base de datos (tabla user) inicializada');
-        Quiz.count().then(function (count){
+        Quiz.count().success(function (count){
           if(count === 0) {   // la tabla se inicializa solo si está vacía
-            Quiz.bulkCreate( 
-              [ {pregunta: 'Capital de Italia',   respuesta: 'Roma', UserId: 2}, // estos quizes pertenecen al usuario pepe (2)
-                {pregunta: 'Capital de Portugal', respuesta: 'Lisboa', UserId: 2}
-              ]
+            Quiz.create( 
+              {pregunta: 'Capital de Italia',   respuesta: 'Roma'} // estos quizes pertenecen al usuario pepe (2)
+              );
+                        Quiz.create( 
+
+                {pregunta: 'Capital de Portugal', respuesta: 'Lisboa'}
+                            
             ).then(function(){console.log('Base de datos (tabla quiz) inicializada')});
           };
         });
       });
-    };
-  });
-});
-*/
 
+/*
 exports.Quiz = Quiz; 
 sequelize.sync().success(function(){
 	Quiz.count().success(function (count){
@@ -87,3 +81,4 @@ sequelize.sync().success(function(){
 	});
 
 });
+*/

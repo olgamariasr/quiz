@@ -1,12 +1,16 @@
 var express = require('express');
+var router = express.Router();
+
 // b: Importar quiz_controller.js en routes/index.js.js
 var quizController = require('../controllers/quiz_controller');
-var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Quiz' });
 });
+
+router.param('quizId', quizController.load); //autoload :quizId
+
 // Introducir nuevas rutas en el enrutador routes/index.js
 // GET /quizes/question y GET /quizes/answer
 /*

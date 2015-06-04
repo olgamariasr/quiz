@@ -1,7 +1,15 @@
 <table>
+<h3>Introduzca literal para buscar la pregunta:</h3>
+    <span style="font-size:7px">Ignora mayusculas</span>
+
+    <form method="get" action="/quizes">
+    <input type="text" name="search"/>
+    <input type="submit" value="Buscar"/>
+    </form>
+
   <% var i; for (i=0; i < quizes.length; i++) { %>        
     <tr>
-      <td><a href="/quizes/<%= quizes[i].id %>">Pr. <%= quizes[i].pregunta %></a></td>
+      <td><a href="/quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td>
       </tr>
    <%}%>
 </table>

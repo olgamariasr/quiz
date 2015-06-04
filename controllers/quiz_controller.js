@@ -50,8 +50,21 @@ exports.load = function(req, res, next, quizId) {
  // GET /quizes
 // GET /users/:userId/quizes
 exports.index = function(req, res) {  
-  
-  models.Quiz.findAll().then(
+/*
+  searchValue = req.query.search;
+  console.log(searchValue);
+  searchValue= searchValue.replace(/^\s+|\s+$/g, ''); 
+  //searchValue= searchValue.trim(); 
+
+  models.Quiz.findAll({where: ["pregunta like ?", searchValue]}).then(
+*/
+   searchValue = req.query.search||"";
+   searchValue= searchValue.trim();
+   searchValue=(searchValue=="")?searchValue:"%"+searchValue+"%";
+
+    console.log(searchValue);
+  models.Quiz.findAll({where: ["pregunta like ?", searchValue]}).then(
+
     function(quizes) {
       res.render('quizes/index.ejs', {quizes: quizes});
     }

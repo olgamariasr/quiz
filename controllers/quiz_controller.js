@@ -84,3 +84,35 @@ var resultado="Incorrecto";
   }
   res.render('quizes/answer', { quiz: req.quiz, respuesta : resultado});
 };
+
+// GET /quizes/new
+exports.new = function(req, res) {
+  var quiz = models.Quiz.build( // crea objeto quiz 
+    {pregunta: "Pregunta", respuesta: "Respuesta"}
+  );
+
+  res.render('quizes/new', {quiz: quiz});
+};
+
+// POST /quizes/create
+exports.create = function(req, res) {
+  /*req.body.quiz.UserId = req.session.user.id;
+  if(req.files.image){
+    req.body.quiz.image = req.files.image.name;
+  }*/
+  var quiz = models.Quiz.build( req.body.quiz );
+/*
+  quiz
+  .validate()
+  .then(
+    function(err){
+      if (err) {
+        res.render('quizes/new', {quiz: quiz, errors: err.errors});
+      } else {*/
+        quiz // save: guarda en DB campos pregunta y respuesta de quiz
+        .save({fields: ["pregunta", "respuesta", "UserId", "image"]})
+        .then( function(){ res.redirect('/quizes')})
+   /* }      // res.redirect: Redirección HTTP a lista de preguntas
+    }
+  ).catch(function(error){next(error)});*/
+};

@@ -16,18 +16,4 @@ nav span             { margin: 0px 10px 0px 0px;
 .right 				 {float: right;}
 
 .quiz_img 			 { height: 150px; float: left;}
-#wrapper0 {
-    position: absolute;
-    left: 50%; top: 50%; /*move the object to the center of the parent object*/
-    -webkit-transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    -o-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    /*these 5 settings change the base (or registration) point of the wrapper object to it's own center - so we align child center with parent center*/
-}
-#wrapper {
-    position: absolute;
-    left: 50%; top: 30%; /*move the object to the center of the parent object*/
-}
 

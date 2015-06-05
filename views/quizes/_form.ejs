@@ -1,6 +1,41 @@
+<table align="center" style="margin-left: auto; margin-right: auto;">
+<tr>
+<td>
 <label for="preg" class="rem">Pregunta:</label>
+</td>
+<td>
 <input type="text" id="preg" name="quiz[pregunta]" value="<%= quiz.pregunta %>"/> <p>
+</td>
+</tr>
+<tr>
+<td>
 <label for="resp" class="rem">Respuesta:</label>
+</td>
+<td>
 <input type="text" id="resp" name="quiz[respuesta]" value="<%= quiz.respuesta %>"/> <p>
+</td>
+</tr>
+<% var valores=[{id:"otro",show:"Otro"},{id:"humanidades",show:"Humanidades"},{id:"ocio",show:"Ocio"},{id:"ciencia",show:"Ciencia"},{id:"tecnologia",show:"Tecnología"}];%>
+<tr>
+<td>
+<label for="temalist" class="rem">Tema:</label>
+</td>
+<td>
+<select id="temalist" name="quiz[tema]">
+<% 
+for (var i in valores) {%>
+<% if (valores[i].id!=quiz.tema) {%>
+<option value="<%=valores[i].id%>"><%=valores[i].show%></option>
+<%}else{%>
+<option value="<%=valores[i].id%>"selected><%=valores[i].show%></option>
+<%}
+}%>
+</select><p>
+</td>
+</tr>
+<tr>
+<td colspan="2">
 <a href="/quizes"><button type="button">Cancelar</button></a>
-<input type="submit" value="Salvar">
+<input type="submit" value="Salvar"> 
+</td>
+</table>

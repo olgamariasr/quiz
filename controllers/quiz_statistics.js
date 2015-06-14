@@ -61,7 +61,7 @@ exports.showEstadisticas = function(req, res, next) {
 		 	    estadisticas.ncomentarios=count;
 		 	    return estadisticas;
 		 		}).then(function(estadisticas){
-		 		    		models.Quiz.count({distinct: 'id', include: [models.Comment], unique:true, where: ["quizId is not null"] }).then(function(count){
+		 		    		models.Quiz.count({distinct: 'id', include: [models.Comment], unique:true, where: ["quizzid is not null"] }).then(function(count){
 		 		    			estadisticas.pconcomentarios=count;
 		 		    			// calculo a mano la diferencia
 		 		    			estadisticas.psincomentarios=estadisticas.npreguntas - count;

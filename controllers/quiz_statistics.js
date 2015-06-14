@@ -61,20 +61,11 @@ exports.showEstadisticas = function(req, res, next) {
 		 	    estadisticas.ncomentarios=count;
 		 	    return estadisticas;
 		 		}).then(function(estadisticas){
-		 		    		models.Quiz.findAll().then(function(quiz){
-		 		    			estadisticas.psincomentarios=0;
-		 		    			estadisticas.pconcomentarios=0;
-					    	for (wi=0; wi<quiz.length;wi++){
-					    		quizIdValue=quiz[wi].dataValues.id;
-					    		console.log(quizIdValue+" llama con un quiz");
-					    		models.Comment.count( { where:{quizId:quizIdValue}}).then(function(count){
-					    			if (count==0){estadisticas.psincomentarios++;}
-					    			if (count!=0){estadisticas.pconcomentarios++;}
-					    		console.log(estadisticas.psincomentarios+" pasacon un quiz");
-					    		
-					    		});
-					    	}
-							res.render('statistics/printStatistics.ejs', {countPreguntas: estadisticas.npreguntas,countComments: estadisticas.ncomentarios,countConComments:estadisticas.pconcomentarios,countSinComments:estadisticas.psincomentarios, errors: []});
+		 		    		models.Quiz.count({distinct: 'id', include: [models.Comment], unique:true, where: ["quizId is not null"] }).then(function(count){
+		 		    			estadisticas.pconcomentarios=count;
+		 		    			// calculo a mano la diferencia
+		 		    			estadisticas.psincomentarios=estadisticas.npreguntas - count;
+								res.render('statistics/printStatistics.ejs', {countPreguntas: estadisticas.npreguntas,countComments: estadisticas.ncomentarios,countConComments:estadisticas.pconcomentarios,countSinComments:estadisticas.psincomentarios, errors: []});
 					    	});
 	 	 	 	 });
 	 	 	 });

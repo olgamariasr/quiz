@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded());
 app.use(cookieParser('Quiz 2015'));
-app.use(session());
+app.use(session({cookie:{maxAge:2*60*1000}}));
 
 //app.use(cookieParser());
 app.use(methodOverride('_method'));
